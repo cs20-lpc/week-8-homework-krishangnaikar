@@ -23,12 +23,26 @@ LinkedListStack<T>::~LinkedListStack() {
 
 template <typename T>
 void LinkedListStack<T>::clear() {
-    // TO DO: Delete all the elements in the stack
+    Node* temp;
+    Node* current = top;
+    while (top != nullptr) {
+        temp = top->next;
+        delete current;
+        current = temp;
+    }
+
+    top = nullptr;
+    
 }
 
 template <typename T>
 void LinkedListStack<T>::copy(const LinkedListStack<T>& copyObj) {
-    // TO DO: Implement copy 
+    while (copyObj.getLength() > 0) {
+        Node* n = new Node(copyObj.peek());
+        n->next = top;
+        top = n;
+        copyObj.pop();
+    }
     
 }
 
@@ -45,22 +59,40 @@ bool LinkedListStack<T>::isEmpty() const {
 
 template <typename T>
 T LinkedListStack<T>::peek() const {
-    // TO DO: implement peek
+    if (this->length > 0) {
+        return top->data;
+    } else {
+        throw string("No elements to peak");
+    }
 }
 
 template <typename T>
 void LinkedListStack<T>::pop() {
-    // TO DO: Implement pop
+    if (this->length > 0) {
+        top = top->next;
+        this->length -= 1;
+    } else {
+        throw string("No element to pop");
+    }
 }
 
 template <typename T>
 void LinkedListStack<T>::push(const T& elem) {
-    // TO DO: Implement push
+    if (this->length > 0) {
+        Node* n = new Node(elem);
+        n->next = top;
+        top = n;
+        
+    } else {
+        top = new Node(elem);
+
+    }
+    this->length += 1;
 }
 
 template <typename T>
 void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
-    // TO DO: Implement rotate
+    // TODO
 }
 
 template <typename T>
